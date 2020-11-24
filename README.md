@@ -16,8 +16,9 @@ python main.py
 
 В случае успеха в консоли отобразится сообщение типа:
 
-> <path>/quantum_markup/mark_folder/7 was selected
-> Current element: {'folder_path': '<path>/quantum_markup/mark_folder/7\\1114-212', 'img_path': '<path>/quantum_markup/mark_folder/7/1114-212/1114.jpg', 'txt_path': '<path>/quantum_markup/mark_folder/7/1114-212/1114-212.txt', 'req_id': '1114-212', 'key_words': ['валюты'], 'url': 'https://utro.ru/online/rubl.shtml'}
+> \<path\>/quantum_markup/mark_folder/7 was selected
+
+> Current element: {'folder_path': '\<path\>/quantum_markup/mark_folder/7//1114-212', 'img_path': '\<path\>/quantum_markup/mark_folder/7/1114-212/1114.jpg', 'txt_path': '\<path\>/quantum_markup/mark_folder/7/1114-212/1114-212.txt', 'req_id': '1114-212', 'key_words': ['валюты'], 'url': 'https://utro.ru/online/rubl.shtml'}
 
 Чтобы отметить *1* или *-1* можно нажать соответствующие кнопки, или же нажать стрелочки _"вправо"_ и _"влево"_ соответственно.
 
