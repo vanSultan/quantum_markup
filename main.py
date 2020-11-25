@@ -72,7 +72,7 @@ class MarkupProcess:
 
         try:
             last_el = int(elements[-1])
-            return last_el in (-1, 1)
+            return last_el in (-1, 0, 1)
         except ValueError:
             return False
 
@@ -102,10 +102,13 @@ class MyFirstGUI:
 
         self.pass_button = Button(self.next_frame, text="1",
                                   command=lambda: self.set_answer(1), state=tkinter.DISABLED)
-        self.deny_button = Button(self.next_frame, text="-1",
-                                  command=lambda: self.set_answer(-1), state=tkinter.DISABLED)
+        self.deny_button = Button(self.next_frame, text="0",
+                                  command=lambda: self.set_answer(0), state=tkinter.DISABLED)
+        self.break_button = Button(self.next_frame, text="-1",
+                                   command=lambda: self.set_answer(-1), state=tkinter.DISABLED)
 
         self.pass_button.pack(side=tkinter.RIGHT)
+        self.break_button.pack(side=tkinter.LEFT)
         self.deny_button.pack(side=tkinter.LEFT)
 
         self.key_words = StringVar(master)
@@ -136,15 +139,15 @@ class MyFirstGUI:
         self.master.bind("<Key>", self.key_callback)
 
     def key_callback(self, event):
-        if event.keycode == 37:
-            self.set_answer(-1)
-        elif event.keycode == 39:
-            self.set_answer(1)
-        elif event.keycode == 40:
-            self.master.clipboard_clear()
-            self.master.clipboard_append(self.current_element.get("url"))
-        elif event.keycode == 38:
-            webbrowser.open(self.current_element.get("url"))
+        if len(self.current_element.keys()) > 0:
+            if event.keysym == "Left":
+                self.set_answer(0)
+            elif event.keysym == "Right":
+                self.set_answer(1)
+            elif event.keysym == "Down":
+                self.set_answer(-1)
+            elif event.keysym == "Up":
+                webbrowser.open(self.current_element.get("url"))
 
     def select_markup_folder(self):
         self.markup_folder = filedialog.askdirectory(initialdir=self.markup_folder, title="Select markup folder")
@@ -157,8 +160,8 @@ class MyFirstGUI:
             print(f"Can't open the folder: {err_msg}")
 
     def set_answer(self, value: int):
-        if value not in (-1, 1):
-            raise ValueError(f"{value} is not in (-1, 1)")
+        if value not in (-1, 0, 1):
+            raise ValueError(f"{value} is not in (-1, 0, 1)")
 
         cur_i = self.current_element
         if not os.path.exists(cur_i.get("txt_path")):
